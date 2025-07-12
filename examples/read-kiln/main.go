@@ -16,12 +16,11 @@ var k = koanf.New(".")
 // Run this example:
 //
 //	kiln init key
-//	kiln init config --path="./examples/read-kiln/kiln.toml" --recipients $(whoami)=$(cat ~/.kiln/kiln.key.pub)
-//	export KILN_CONFIG_FILE=./examples/read-kiln/kiln.toml
+//	kiln init config --recipients $(whoami)=$(cat ~/.kiln/kiln.key.pub)
 //	kiln set API_KEY super-secret-dev-key
 //	kiln set API_HOST example.com
 //	kiln set DB_HOST postgres://user@localhost:5432
-//	go run ./examples/read-kiln-environment
+//	go run ./examples/read-kiln
 //
 // This example demonstrates loading configuration from multiple sources:
 // 1. A JSON config file for defaults
@@ -63,9 +62,7 @@ func main() {
 			key = strings.ReplaceAll(key, "_", ".")
 
 			// Remove prefixes for cleaner config keys
-			if strings.HasPrefix(key, "api.") {
-				key = strings.TrimPrefix(key, "api.")
-			}
+			key = strings.TrimPrefix(key, "api.")
 
 			return key, value
 		},
